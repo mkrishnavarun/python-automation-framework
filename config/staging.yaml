@@ -1,0 +1,7 @@
+environment: staging
+
+application:
+  base_url: "https://www.saucedemo.com"
+
+browser:
+  timeout: 15

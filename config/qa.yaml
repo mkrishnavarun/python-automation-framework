@@ -1,0 +1,11 @@
+environment: qa
+
+application:
+  base_url: "https://www.saucedemo.com"
+
+browser:
+  timeout: 10
+
+api:
+  base_url: "https://jsonplaceholder.typicode.com"
+  timeout: 10

@@ -43,4 +43,4 @@ class LoginPage(BasePage):
         return "inventory" in self.driver.current_url
 
     def get_error_message(self) -> str:
-        return self.find_element((By.CSS_SELECTOR, "[data-test='error']")).text
+        return str(self.find_element((By.CSS_SELECTOR, "[data-test='error']")).text)

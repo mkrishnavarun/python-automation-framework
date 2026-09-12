@@ -1,41 +1,41 @@
-import pytest
-from drivers.driver_factory import DriverFactory
-from config.config_loader import ConfigLoader
+# ruff: noqa: F401
 from pathlib import Path
-from utils.json_reader import JsonReader
-from pages.login_page import LoginPage
 
-from fixtures.browser import driver
-from fixtures.config import config
-from fixtures.data import test_data
-from fixtures.pages import login_page
+import pytest
+
+from config.config_loader import ConfigLoader
+from drivers.driver_factory import DriverFactory
 from fixtures.api import api_client
-from fixtures.services import user_service
-from fixtures.test_setup import api_user
+from fixtures.browser import driver
 from fixtures.browser import (
-    driver,
     register_options as register_browser_options,
 )
+from fixtures.config import config
 from fixtures.config import (
     register_options as register_config_options,
 )
+from fixtures.data import test_data
+from fixtures.pages import login_page
+from fixtures.services import user_service
+from fixtures.test_setup import api_user
+from pages.login_page import LoginPage
+from utils.json_reader import JsonReader
 
 # @pytest.fixture(scope="session")
 # def test_data():
 #     return JsonReader.read("test_data/users.json")
 
+
 @pytest.fixture
 def test_user():
     print("\nSETUP: Creating test user")
 
-    user = {
-        "username": "test_user",
-        "password": "password123"
-    }
+    user = {"username": "test_user", "password": "password123"}
 
     yield user
 
     print("\nTEARDOWN: Cleaning up test user")
+
 
 # @pytest.fixture
 # def driver(request):
@@ -51,21 +51,21 @@ def test_user():
 #
 #     browser.quit()
 
-def pytest_addoption(parser):
-    parser.addoption(
-        "--env",
-        action="store",
-        default="qa",
-        help="Environment to run tests against"
-    )
-
-    parser.addoption(
-        "--headless",
-        "--browser",
-        action="store",
-        default="chrome",
-        help="Browser to use for test execution"
-    )
+# def pytest_addoption(parser):
+#     parser.addoption(
+#         "--env",
+#         action="store",
+#         default="qa",
+#         help="Environment to run tests against"
+#     )
+#
+#     parser.addoption(
+#         "--headless",
+#         "--browser",
+#         action="store",
+#         default="chrome",
+#         help="Browser to use for test execution"
+#     )
 
 # @pytest.fixture(scope="session")
 # def config(request):
@@ -84,24 +84,17 @@ def pytest_runtest_makereport(item, call):
 
         if driver:
             screenshot_directory = Path("reports/screenshots")
-            screenshot_directory.mkdir(
-                parents=True,
-                exist_ok=True
-            )
+            screenshot_directory.mkdir(parents=True, exist_ok=True)
 
-            screenshot_path = (
-                screenshot_directory
-                / f"{item.name}.png"
-            )
+            screenshot_path = screenshot_directory / f"{item.name}.png"
 
-            driver.save_screenshot(
-                str(screenshot_path)
-            )
+            driver.save_screenshot(str(screenshot_path))
 
 
 def pytest_addoption(parser):
     register_config_options(parser)
     register_browser_options(parser)
+
 
 # @pytest.fixture
 # def login_page(driver, config):

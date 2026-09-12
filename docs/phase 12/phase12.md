@@ -86,3 +86,78 @@ jobs:
         with:
           name: automation-logs
           path: logs/
+
+
+Docker:
+Your laptop
+     │
+     │ docker run
+     ▼
+┌─────────────────────────────┐
+│ Docker Container            │
+│                             │
+│ Python 3.12                 │
+│ Chromium                    │
+│ ChromeDriver                │
+│ pytest                      │
+│ Selenium                    │
+│ Your framework              │
+│                             │
+│       pytest                │
+│          ↓                  │
+│      API + UI tests         │
+└─────────────────────────────┘
+
+3. Why is Docker is useful for framework:
+Before:
+
+Developer machine
+    ↓
+Python version
+    ↓
+Installed packages
+    ↓
+Chrome installation
+    ↓
+Environment differences
+    ↓
+Tests
+
+
+After:
+Dockerfile
+    ↓
+Known Python version
+    ↓
+Known dependencies
+    ↓
+Known browser
+    ↓
+Known test environment
+    ↓
+Tests
+
+
+Final:
+
+                 Docker
+                   │
+                   ▼
+        ┌─────────────────────┐
+        │ python-automation-  │
+        │ framework container  │
+        │                     │
+        │ Python 3.12         │
+        │ Chromium            │
+        │ Selenium            │
+        │ pytest              │
+        │ API framework       │
+        │ UI framework        │
+        └──────────┬──────────┘
+                   │
+                   ▼
+                pytest
+                   │
+             ┌─────┴─────┐
+             ▼           ▼
+          API tests    UI tests

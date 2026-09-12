@@ -10,10 +10,12 @@ class ApplicationConfig:
 class BrowserConfig:
     timeout: int
 
+
 @dataclass(frozen=True)
 class APIConfig:
     base_url: str
     timeout: int
+
 
 @dataclass(frozen=True)
 class EnvironmentConfig:

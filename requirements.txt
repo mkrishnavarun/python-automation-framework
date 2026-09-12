@@ -4,3 +4,5 @@ requests
 PyYAML
 pytest-xdist
 pytest-html
+ruff
+mypy

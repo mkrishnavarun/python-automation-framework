@@ -8,8 +8,4 @@ class CreateUserRequest:
     email: str
 
     def to_dict(self) -> dict:
-        return {
-            "name": self.name,
-            "username": self.username,
-            "email": self.email
-        }
+        return {"name": self.name, "username": self.username, "email": self.email}

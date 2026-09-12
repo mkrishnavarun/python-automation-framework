@@ -1,16 +1,15 @@
 from selenium.webdriver.common.by import By
 
-from pages.base_page import BasePage
 from config.models import EnvironmentConfig
+from pages.base_page import BasePage
 
 
 class LoginPage(BasePage):
-
     USERNAME = (By.ID, "user-name")
     PASSWORD = (By.ID, "password")
     LOGIN_BUTTON = (By.ID, "login-button")
 
-    def __init__(self, driver, config:EnvironmentConfig):
+    def __init__(self, driver, config: EnvironmentConfig):
         # timeout = config["browser"]["timeout"]
         timeout = config.browser.timeout
         super().__init__(driver, timeout=timeout)
@@ -44,6 +43,4 @@ class LoginPage(BasePage):
         return "inventory" in self.driver.current_url
 
     def get_error_message(self) -> str:
-        return self.find_element(
-            (By.CSS_SELECTOR, "[data-test='error']")
-        ).text
+        return self.find_element((By.CSS_SELECTOR, "[data-test='error']")).text

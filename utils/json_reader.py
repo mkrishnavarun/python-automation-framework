@@ -12,5 +12,5 @@ class JsonReader:
             raise FileNotFoundError(f"Test data file not found: {path}")
 
         with open(path, "r", encoding="utf-8") as file:
-            data= json.load(file)
+            data = json.load(file)
             return cast(dict[str, Any], data)

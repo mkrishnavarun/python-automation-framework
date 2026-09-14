@@ -24,3 +24,33 @@ class ConfigLoader:
             browser=BrowserConfig(timeout=data["browser"]["timeout"]),
             api=APIConfig(base_url=data["api"]["base_url"], timeout=data["api"]["timeout"]),
         )
+
+    @staticmethod
+    def _validate(data: dict, environment: str) -> None:
+        required_sections = [
+            "environment",
+            "application",
+            "browser",
+            "api",
+        ]
+
+        for section in required_sections:
+            if section not in data:
+                raise ConfigurationError(
+                    f"Missing '{section}' section in {environment} configuration"
+                )
+
+        if not data["application"].get("base_url"):
+            raise ConfigurationError(
+                "Application base_url is missing"
+            )
+
+        if not data["api"].get("base_url"):
+            raise ConfigurationError(
+                "API base_url is missing"
+            )
+
+        if not data["browser"].get("timeout"):
+            raise ConfigurationError(
+                "Browser timeout is missing"
+            )

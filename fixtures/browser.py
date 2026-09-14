@@ -18,6 +18,7 @@ def driver(request):
 
     driver = DriverFactory.create_driver(browser=browser, headless=headless)
 
-    yield driver
-
-    driver.quit()
+    try:
+        yield driver
+    finally:
+        driver.quit()

@@ -79,16 +79,27 @@ def pytest_runtest_makereport(item, call):
     outcome = yield
     report = outcome.get_result()
 
-    if report.when == "call" and report.failed:
-        driver = item.funcargs.get("driver")
+    if report.when != "call" or not report.failed:
+        return
 
-        if driver:
-            screenshot_directory = Path("reports/screenshots")
-            screenshot_directory.mkdir(parents=True, exist_ok=True)
+    driver = item.funcargs.get("driver")
 
-            screenshot_path = screenshot_directory / f"{item.name}.png"
+    if driver is None:
+        return
 
-            driver.save_screenshot(str(screenshot_path))
+    screenshot_dir = Path("reports/screenshots")
+    screenshot_dir.mkdir(parents=True, exist_ok=True)
+
+    test_name = item.nodeid.replace("/", "_").replace("::", "_")
+    screenshot_path = screenshot_dir / f"{test_name}.png"
+
+    driver.save_screenshot(str(screenshot_path))
+
+    logger.error(
+        "Test failed: %s. Screenshot: %s",
+        item.nodeid,
+        screenshot_path
+    )
 
 
 def pytest_addoption(parser):

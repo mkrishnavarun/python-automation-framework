@@ -21,6 +21,4 @@ class DriverFactory:
             raise
 
         except Exception as exc:
-            raise FrameworkError(
-                f"Failed to create {browser} WebDriver: {exc}"
-            ) from exc
+            raise FrameworkError(f"Failed to create {browser} WebDriver: {exc}") from exc

@@ -14,9 +14,7 @@ class JsonReader:
             path = project_root / path
 
         if not path.exists():
-            raise FileNotFoundError(
-                f"Test data file not found: {path}"
-            )
+            raise FileNotFoundError(f"Test data file not found: {path}")
 
         with path.open("r", encoding="utf-8") as file:
             return dict(json.load(file))

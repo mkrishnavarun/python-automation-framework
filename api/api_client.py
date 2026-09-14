@@ -18,39 +18,17 @@ class APIClient:
         url = f"{self.base_url}/{endpoint.lstrip('/')}"
 
         try:
-            response = self.session.request(
-                method=method,
-                url=url,
-                timeout=self.timeout,
-                **kwargs
-            )
+            response = self.session.request(method=method, url=url, timeout=self.timeout, **kwargs)
 
         except requests.Timeout as exc:
-            self.logger.error(
-                "Request timed out: %s %s",
-                method.upper(),
-                url
-            )
-            raise FrameworkError(
-                f"API request timed out: {method.upper()} {url}"
-            ) from exc
+            self.logger.error("Request timed out: %s %s", method.upper(), url)
+            raise FrameworkError(f"API request timed out: {method.upper()} {url}") from exc
 
         except requests.RequestException as exc:
-            self.logger.error(
-                "API request failed: %s %s - %s",
-                method.upper(),
-                url,
-                exc
-            )
-            raise FrameworkError(
-                f"API request failed: {method.upper()} {url}"
-            ) from exc
+            self.logger.error("API request failed: %s %s - %s", method.upper(), url, exc)
+            raise FrameworkError(f"API request failed: {method.upper()} {url}") from exc
 
-        self.logger.info(
-            "Response status: %s",
-            response.status_code
-        )
-
+        self.logger.info("Response status: %s", response.status_code)
 
         return response
 

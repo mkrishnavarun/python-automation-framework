@@ -42,16 +42,10 @@ class ConfigLoader:
                 )
 
         if not data["application"].get("base_url"):
-            raise ConfigurationError(
-                "Application base_url is missing"
-            )
+            raise ConfigurationError("Application base_url is missing")
 
         if not data["api"].get("base_url"):
-            raise ConfigurationError(
-                "API base_url is missing"
-            )
+            raise ConfigurationError("API base_url is missing")
 
         if not data["browser"].get("timeout"):
-            raise ConfigurationError(
-                "Browser timeout is missing"
-            )
+            raise ConfigurationError("Browser timeout is missing")

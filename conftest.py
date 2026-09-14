@@ -20,6 +20,9 @@ from fixtures.services import user_service
 from fixtures.test_setup import api_user
 from pages.login_page import LoginPage
 from utils.json_reader import JsonReader
+from utils.logger import get_logger
+
+logger = get_logger("conftest.pt")
 
 # @pytest.fixture(scope="session")
 # def test_data():
@@ -82,9 +85,9 @@ def pytest_runtest_makereport(item, call):
     if report.when != "call" or not report.failed:
         return
 
-    driver = item.funcargs.get("driver")
+    browser = item.funcargs.get("driver")
 
-    if driver is None:
+    if browser is None:
         return
 
     screenshot_dir = Path("reports/screenshots")
@@ -93,12 +96,12 @@ def pytest_runtest_makereport(item, call):
     test_name = item.nodeid.replace("/", "_").replace("::", "_")
     screenshot_path = screenshot_dir / f"{test_name}.png"
 
-    driver.save_screenshot(str(screenshot_path))
+    browser.save_screenshot(str(screenshot_path))
 
     logger.error(
         "Test failed: %s. Screenshot: %s",
         item.nodeid,
-        screenshot_path
+        screenshot_path,
     )
 
 

@@ -2,6 +2,7 @@ from typing import Any
 
 import requests
 
+from exceptions import FrameworkError
 from utils.logger import get_logger
 
 

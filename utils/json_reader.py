@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from typing import Any, cast
+from typing import Any
 
 
 class JsonReader:
@@ -8,9 +8,15 @@ class JsonReader:
     def read(file_path: str) -> dict[str, Any]:
         path = Path(file_path)
 
-        if not path.exists():
-            raise FileNotFoundError(f"Test data file not found: {path}")
+        # Resolve relative paths from the project root
+        if not path.is_absolute():
+            project_root = Path(__file__).resolve().parents[1]
+            path = project_root / path
 
-        with open(path, "r", encoding="utf-8") as file:
-            data = json.load(file)
-            return cast(dict[str, Any], data)
+        if not path.exists():
+            raise FileNotFoundError(
+                f"Test data file not found: {path}"
+            )
+
+        with path.open("r", encoding="utf-8") as file:
+            return dict(json.load(file))

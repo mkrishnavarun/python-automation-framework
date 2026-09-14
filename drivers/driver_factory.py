@@ -3,6 +3,7 @@ from selenium import webdriver
 from drivers.browser_options import BrowserOptions
 from exceptions import FrameworkError, UnsupportedBrowserError
 
+
 class DriverFactory:
     @staticmethod
     def create_driver(browser: str = "chrome", headless: bool = False):

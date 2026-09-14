@@ -3,6 +3,7 @@ from pathlib import Path
 import yaml
 
 from config.models import APIConfig, ApplicationConfig, BrowserConfig, EnvironmentConfig
+from exceptions import ConfigurationError
 
 
 class ConfigLoader:
